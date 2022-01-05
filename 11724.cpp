@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <vector>
+#include <queue>
 using namespace std;
 
 int n,m;
@@ -15,6 +16,25 @@ void dfs(int x){
     }
 }
 
+void bfs(int s){ // starting point 
+    if(visit[s]) return;
+
+    queue<int> q;
+    q.push(s);
+    visit[s]=true;
+
+    while(!q.empty()){
+        int x=q.front();
+        q.pop();
+
+        for(int i=0;i<adj[x].size();i++){
+            if(!visit[adj[x][i]]){
+                q.push(adj[x][i]);
+                visit[adj[x][i]]=true;
+            }
+        }
+    }
+}
 int main(){
     int u, v;
     scanf("%d%d", &n, &m);
@@ -27,7 +47,7 @@ int main(){
     int cnt=0;
     for(int i=1;i<=n;i++){
         if(!visit[i]){
-            dfs(i);
+            bfs(i);
             cnt++;
         }
     }
