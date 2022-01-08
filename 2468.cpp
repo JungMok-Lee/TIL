@@ -10,7 +10,7 @@ int dx[4]={0, 0, -1, 1};
 int dy[4]={1, -1, 0, 0};
 
 void dfs(int sub, int y, int x){
-    if(adj[y][x]-sub<0) return; // 잠시면 세지 마!
+    if(adj[y][x]-sub<0) return; // 잠기면 세지 마!
     v[y][x]=1;
     //printf("%d %d passed\n", y, x);
 
