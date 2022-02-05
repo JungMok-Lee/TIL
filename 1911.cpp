@@ -2,39 +2,40 @@
 #include <algorithm>
 using namespace std;
 
-struct p{
-    int a, b;
-};
+typedef struct _p{
+    int s,e;
+}p;
 
-bool cmp(p &f, p &s){
-    if(f.a==s.a) return f.b<s.b;
-    return f.a<s.a;
+bool cmp(p &i1, p &i2){
+    if(i1.s==i2.s) return i1.e<i2.e;
+    return i1.s<i2.s;
 }
-p se[10005];
-
 int main(){
     int n, l;
+    p m[10001];
     scanf("%d%d", &n, &l);
+    for(int i=0;i<n;i++){
+        scanf("%d%d", &m[i].s, &m[i].e);
+    }  
+    sort(m, m+n, cmp);
+
+    int end=0;
+    int ans=0;
 
     for(int i=0;i<n;i++){
-        scanf("%d%d", &se[i].a, &se[i].b);
-    }
-
-    sort(se, se+n, cmp);
-
-    int ans=0, s=0;
-    for(int i=0;i<n;i++){
-        int x=se[i].a;
-        int y=se[i].b;
-        if(x<s) x=s;
-
+        int x=m[i].s;
+        int y=m[i].e;
+        if(x<end) x=end;
         if(x<y){
-            int cnt=(y-x)/l;
-            if((y-x)%l!=0) cnt++;
+            int c=(y-x)/l;
+            if((y-x)%l!=0) c++;
 
-            ans+=cnt;
-            s=x+l*cnt;
+            end=x+c*l;
+            ans+=c;
         }
     }
-    printf("%d\n",ans);
+
+    printf("%d\n", ans);
+
+
 }
