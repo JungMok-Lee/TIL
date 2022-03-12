@@ -1,53 +1,57 @@
-#include <iostream>
-#include <string>
-#include <algorithm>
+// bfs로 푸는 문제 왜 ??????
+#include <cstdio>
+#include <queue>
 using namespace std;
 
 int n, m;
-int adj[101][101];
-int visit[101][101] = {0,};
-int shortest = 1000001;
 
-int dx[4] = {1,0,-1,0};
-int dy[4] = {0,1,0,-1};
+// for graph traversal
+int a[101][101];
+int v[101][101];
+
+// for counting the #
+int c[101][101];
+
+// for next x and next y
+int dx[4]={0, 0, -1, 1};
+int dy[4]={1, -1, 0, 0};
 
 
-void dfs(int sx, int sy, int depth){
-    if(sx>n || sy>m) return;
-    if(sx<1 || sy<1) return;
-    
-    if(sx==n && sy==m){
-        if(depth<shortest) {
-            shortest = depth;
+void bfs(){
+    v[0][0]=1;
+
+    queue<pair<int, int> > q;
+    q.push(make_pair(0, 0));
+
+    while(!q.empty()){
+        int x=q.front().first;
+        int y=q.front().second;
+        q.pop();
+
+        for(int i=0;i<4;i++){
+            int nx=x+dx[i];
+            int ny=y+dy[i];
+            if(nx>=0 && nx<n && ny>=0 && ny<m && !v[nx][ny] && a[nx][ny]){
+                v[nx][ny]=1;
+                q.push(make_pair(nx, ny));
+                c[nx][ny]=c[x][y]+1;
+            }
         }
-        return;
     }
-
-    for(int i=0;i<4;i++){
-        int nx = sx+dx[i];
-        int ny = sy+dy[i];
-
-        if(visit[nx][ny]==0 && adj[nx][ny]==1){
-            visit[nx][ny]=1;
-            dfs(nx, ny, depth+1);
-            visit[nx][ny]=0; // 이게 중요
-        }
-    }
-    //cout<<depth<<endl;
-
 }
 
 int main(){
-    string s;
     scanf("%d%d", &n, &m);
-    for(int i=1;i<=n;i++){
-        cin>>s;
-        for(int j=1;j<=m;j++){
-            adj[i][j]=s[j-1]-'0';
-            //cout<<i<<" "<<j<<" , "<<adj[i][j]<<endl;
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            scanf("%1d", &a[i][j]);
         }
     }
-    dfs(1, 1, 1);
-    cout<<shortest<<endl;
+
+    bfs();
+
+    printf("%d\n", c[n-1][m-1]+1);
+
 
 }
