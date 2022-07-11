@@ -5,6 +5,9 @@
         "utility": "cpp",
         "cstdio": "cpp",
         "functional": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "string": "cpp",
+        "iosfwd": "cpp",
+        "set": "cpp"
     }
 }
