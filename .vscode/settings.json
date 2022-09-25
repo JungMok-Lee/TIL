@@ -8,6 +8,8 @@
         "queue": "cpp",
         "string": "cpp",
         "iosfwd": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "ostream": "cpp",
+        "algorithm": "cpp"
     }
 }
